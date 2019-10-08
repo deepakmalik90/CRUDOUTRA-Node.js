@@ -1,6 +1,6 @@
 class Api
 {
-    constructor(URL,METHOD,GET,POST)
+    constructor(URL,METHOD,GET,POST,resource_list)
     {
         this.response   =   {
                                 'status'    :   404,
@@ -10,34 +10,51 @@ class Api
                                                 }
                             };
 
+
         this.URL        =   URL;
         this.METHOD     =   METHOD;
         this.GET        =   GET;
         this.POST       =   POST;
+        this.resource_list  = resource_list;
+        
+        return(this.init());
+
+    }
+
+    init()
+    {
+        if(this._validate_resource(this.resource_list))
+        {
+            return(this.response);
+        }
 
         switch(this.METHOD)
         {
             case 'GET'      :
                 this.response   =   this._get();
+            break;    
             case 'POST'     :
                 this.response   =   this._post();
+            break;    
             case 'PUT'      :
                 this.response   =   this._put();
+            break;    
             case 'DELETE'   :
-                this.response   =   this._delete();                
+                this.response   =   this._delete();
+            break;    
         }
 
         return(this.response);
     }
 
-    _validate_resource(resource)
+    _validate_resource(resource_list)
     {
-        this.URL.forEach(u => {
-            if(resource[u]===undefined)
-                return(false);
+        this.URL.forEach(item => {
+            if(resource_list[item]===undefined)
+                return(true);
         });
 
-        return true;
+        return false;
     }
 
     _get() 

@@ -33,11 +33,14 @@ server.on('request',(request, response) => {
     }).on('end', () => {
 
         let POST            =   Buffer.concat(body).toString();
-        responseArray       =   controller(response,URL,method,GET,POST);
+
+        response.setHeader('Content-Type', 'application/json');
+        response.setHeader('Access-Control-Allow-Origin', '*');
+
+        responseArray           =   controller(response,URL,method,GET,POST);
         if(responseArray)
         {
             response.statusCode =   responseArray.status;
-            response.setHeader('Content-Type', 'application/json');
             response.write(JSON.stringify(responseArray.body),null,3);
             response.end();
         }

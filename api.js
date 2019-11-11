@@ -99,7 +99,6 @@ class Api
      _response(responseArray)
     {
         this.response.statusCode =   responseArray.status;
-        this.response.setHeader('Content-Type', 'application/json');
         this.response.write(JSON.stringify(responseArray.body),null,3);
         this.response.end();
     }

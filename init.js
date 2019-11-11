@@ -1,8 +1,7 @@
 const http          =   require('http');
-const qs            =   require('querystring');
 const controller    =   require('./controller');
 const hostname  =   '127.0.0.1';
-const port      =   3000;
+const port      =   3001;
 
 const server    =   http.createServer();
     
@@ -32,16 +31,16 @@ server.on('request',(request, response) => {
     request.on('data', (chunk) => {
         body.push(chunk);
     }).on('end', () => {
-        body                =   Buffer.concat(body).toString();
 
-        let POST            =   qs.parse(body);
-
-        responseArray       =   controller(URL,method,GET,POST);
-
-        response.statusCode =   responseArray.status;
-        response.setHeader('Content-Type', 'application/json');
-        response.write(JSON.stringify(responseArray.body),null,3);
-        response.end();
+        let POST            =   Buffer.concat(body).toString();
+        responseArray       =   controller(response,URL,method,GET,POST);
+        if(responseArray)
+        {
+            response.statusCode =   responseArray.status;
+            response.setHeader('Content-Type', 'application/json');
+            response.write(JSON.stringify(responseArray.body),null,3);
+            response.end();
+        }
 
     });
  

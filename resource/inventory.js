@@ -1,6 +1,6 @@
 const Api = require('../api');
 
-class User extends Api
+class Inventory extends Api
 {
     constructor(URL,METHOD,GET,POST)
     {

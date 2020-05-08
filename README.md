@@ -1,6 +1,6 @@
 # CRUDOUTRA - Node.js
 
-**Written in node.js only (No framework or third party tool used).**
+**Written in node.js only, no other framework or third party ilbrary is used.**
 -------------------------------------------------------------------
 
 A very simple application for CRUD operations using the REST API.  
